@@ -54,13 +54,19 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
             Response.Redirect("~/Pages/CRUD.aspx?id=" + id + "&op=D");
         }
 
-        protected void BtnRead_Click(object sender, EventArgs e)
+        protected void BtnSearch_Click(object sender, EventArgs e)
         {
-            string id;
-            Button BtnConsultar = (Button)sender;
-            GridViewRow selectedRow = (GridViewRow)BtnConsultar.NamingContainer;
-            id = selectedRow.Cells[1].Text;
-            Response.Redirect("~/Pages/CRUD.aspx?id=" + id + "&op=R");
+            SqlCommand cmd = new SqlCommand("sp_GetEmpleados", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            da.SelectCommand.Parameters.Add("@Search", SqlDbType.VarChar).Value = txtSearch.Text;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            gvusuarios.DataSource = dt;
+            gvusuarios.DataBind();
+            con.Close();
         }
     }
 }

@@ -35,9 +35,6 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
                             this.lblTitulo.Text = "Ingresar Nuevo Empleado";
                             this.BtnCreate.Visible = true;
                             break;
-                        case "R":
-                            this.lblTitulo.Text = "Consulta de Empleado";
-                            break;
                         case "U":
                             this.lblTitulo.Text = "Editar Empleado";
                             this.BtnEdit.Visible = true;
