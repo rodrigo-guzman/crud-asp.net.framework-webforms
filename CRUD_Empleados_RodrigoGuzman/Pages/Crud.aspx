@@ -79,6 +79,21 @@
             if (valor === '') {
                 alert(mensaje);
                 input.focus();
+                input.select();
+                return false;
+            }
+
+            return true;
+        }
+
+        function validarEmail(input) {
+            var valor = input.value.trim();
+            var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+            if (!emailRegex.test(valor)) {
+                alert('El Email no tiene un formato válido.');
+                input.focus();
+                input.select();
                 return false;
             }
 
@@ -91,15 +106,21 @@
                 { input: document.getElementById('<%= tbApellido.ClientID %>'), mensaje: 'El Apellido no puede estar vacío.' },
                 { input: document.getElementById('<%= tbEmail.ClientID %>'), mensaje: 'El Email no puede estar vacío.' },
                 { input: document.getElementById('<%= tbSalario.ClientID %>'), mensaje: 'El Salario no puede estar vacío.' }
-            ];
+                ];
 
-            for (var i = 0; i < campos.length; i++) {
-                if (!validarCampo(campos[i].input, campos[i].mensaje)) {
-                    return false;
+                for (var i = 0; i < campos.length; i++) {
+                    if (!validarCampo(campos[i].input, campos[i].mensaje)) {
+                        return false;
+                    }
                 }
+
+            var emailInput = document.getElementById('<%= tbEmail.ClientID %>');
+            if (!validarEmail(emailInput)) {
+                return false;
             }
 
             return true;
         }
+
     </script>
 </asp:Content>
