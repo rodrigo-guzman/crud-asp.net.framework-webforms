@@ -15,15 +15,6 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
     {
 
         /// <summary>
-        /// Control lblTitulo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitulo;
-
-        /// <summary>
         /// Control tbNombre.
         /// </summary>
         /// <remarks>
@@ -85,14 +76,5 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnDelete;
-
-        /// <summary>
-        /// Control BtnVolver.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnVolver;
     }
 }

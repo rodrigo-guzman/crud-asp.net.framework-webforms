@@ -35,7 +35,10 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
 
         protected void BtnCreate_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Pages/CRUD.aspx?op=C");
+            string url = "~/Pages/CRUD.aspx?op=C";
+
+            string script = "<script>window.open('" + ResolveUrl(url) + "', '', 'width=500,height=550');</script>";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Popup", script);
         }
 
         protected void BtnEdit_Click(object sender, EventArgs e)
@@ -44,13 +47,10 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
             Button BtnConsultar = (Button)sender;
             GridViewRow selectedRow = (GridViewRow)BtnConsultar.NamingContainer;
             id = selectedRow.Cells[1].Text;
-            //Response.Redirect("~/Pages/CRUD.aspx?id=" + id + "&op=U");
 
+            string url = "~/Pages/CRUD.aspx?id=" + id + "&op=U";
 
-            string url = "~/Pages/CRUD.aspx?id=" + id + "&op=D";
-
-            // Luego, usa JavaScript para abrir la página en una ventana emergente con tamaño minimizado
-            string script = "<script>window.open('" + ResolveUrl(url) + "', '', 'width=500,height=600');</script>";
+            string script = "<script>window.open('" + ResolveUrl(url) + "', '', 'width=500,height=550');</script>";
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Popup", script);
         }
 
@@ -60,7 +60,10 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
             Button BtnConsultar = (Button)sender;
             GridViewRow selectedRow = (GridViewRow)BtnConsultar.NamingContainer;
             id = selectedRow.Cells[1].Text;
-            Response.Redirect("~/Pages/CRUD.aspx?id=" + id + "&op=D");
+            string url = "~/Pages/CRUD.aspx?id=" + id + "&op=D";
+
+            string script = "<script>window.open('" + ResolveUrl(url) + "', '', 'width=500,height=550');</script>";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Popup", script);
         }
 
         protected void BtnSearch_Click(object sender, EventArgs e)

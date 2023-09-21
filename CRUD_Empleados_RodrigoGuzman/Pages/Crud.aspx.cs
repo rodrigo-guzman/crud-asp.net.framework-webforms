@@ -32,15 +32,15 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
                     switch (sOpcion)
                     {
                         case "C":
-                            this.lblTitulo.Text = "Ingresar Nuevo Empleado";
+                            //this.lblTitulo.Text = "Ingresar Nuevo Empleado";
                             this.BtnCreate.Visible = true;
                             break;
                         case "U":
-                            this.lblTitulo.Text = "Editar Empleado";
+                            //this.lblTitulo.Text = "Editar Empleado";
                             this.BtnEdit.Visible = true;
                             break;
                         case "D":
-                            this.lblTitulo.Text = "Eliminar Empleado";
+                            //this.lblTitulo.Text = "Eliminar Empleado";
                             this.BtnDelete.Visible = true;
                             break;
                     }
@@ -91,11 +91,6 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
             cmd.Parameters.Add("@Id", SqlDbType.Int).Value = sID;
             cmd.ExecuteNonQuery();
             con.Close();
-            Response.Redirect("~/Pages/Index.aspx");
-        }
-
-        protected void BtnVolver_Click(object sender, EventArgs e)
-        {
             Response.Redirect("~/Pages/Index.aspx");
         }
 
