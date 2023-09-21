@@ -4,7 +4,9 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -22,8 +24,8 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
-            gvusuarios.DataSource = dt;
-            gvusuarios.DataBind();
+            gvempleados.DataSource = dt;
+            gvempleados.DataBind();
             con.Close();
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -42,7 +44,14 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
             Button BtnConsultar = (Button)sender;
             GridViewRow selectedRow = (GridViewRow)BtnConsultar.NamingContainer;
             id = selectedRow.Cells[1].Text;
-            Response.Redirect("~/Pages/CRUD.aspx?id=" + id + "&op=U");
+            //Response.Redirect("~/Pages/CRUD.aspx?id=" + id + "&op=U");
+
+
+            string url = "~/Pages/CRUD.aspx?id=" + id + "&op=D";
+
+            // Luego, usa JavaScript para abrir la página en una ventana emergente con tamaño minimizado
+            string script = "<script>window.open('" + ResolveUrl(url) + "', '', 'width=500,height=600');</script>";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Popup", script);
         }
 
         protected void BtnDelete_Click(object sender, EventArgs e)
@@ -56,17 +65,77 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
+            LlenarGrillaEmpleados();
+        }
+
+        public void LlenarGrillaEmpleados(string query = "")
+        {
+
             SqlCommand cmd = new SqlCommand("sp_GetEmpleados", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
             con.Open();
             SqlDataAdapter da = new SqlDataAdapter(cmd);
-            da.SelectCommand.Parameters.Add("@Search", SqlDbType.VarChar).Value = txtSearch.Text;
+            string texto = (query != "") ? query : txtSearch.Text;
+            da.SelectCommand.Parameters.Add("@Search", SqlDbType.VarChar).Value = texto;
             DataTable dt = new DataTable();
             da.Fill(dt);
-            gvusuarios.DataSource = dt;
-            gvusuarios.DataBind();
+            gvempleados.DataSource = dt;
+            gvempleados.DataBind();
             con.Close();
+        }
+
+        [WebMethod]
+        public static string Buscar(string query)
+        {
+            try
+            {
+                Index index = new Index();
+                SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["conexion"].ConnectionString);
+                SqlCommand cmd = new SqlCommand("sp_GetEmpleados", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conexion.Open();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                string texto = (query != "") ? query : index.txtSearch.Text;
+                da.SelectCommand.Parameters.Add("@Search", SqlDbType.VarChar).Value = texto;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                //index.gvempleados.DataSource = dt;
+                //index.gvempleados.DataBind();
+                conexion.Close();
+                return DataTableToString(dt);
+            }
+            catch (Exception ex)
+            {
+                var a = ex;
+                throw;
+            }
+        }
+
+        static string DataTableToString(DataTable dataTable)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            // Agregar encabezados de columnas
+            foreach (DataColumn column in dataTable.Columns)
+            {
+                sb.Append(column.ColumnName);
+                sb.Append("\t"); // Puedes usar un separador diferente si lo deseas
+            }
+            sb.AppendLine();
+
+            // Agregar datos de las filas
+            foreach (DataRow row in dataTable.Rows)
+            {
+                foreach (object item in row.ItemArray)
+                {
+                    sb.Append(item.ToString());
+                    sb.Append("\t"); // Puedes usar un separador diferente si lo deseas
+                }
+                sb.AppendLine();
+            }
+
+            return sb.ToString();
         }
     }
 }

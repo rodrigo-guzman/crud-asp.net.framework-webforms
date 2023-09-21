@@ -31,7 +31,7 @@
         <asp:Button Text="Crear" runat="server" CssClass="btn form-control btn-info" ID="BtnCreate" Visible="false" OnClick="BtnCreate_Click"/>
         <asp:Button Text="Editar" runat="server" CssClass="btn form-control btn-info" ID="BtnEdit" Visible="false" OnClick="BtnEdit_Click"/>
         <asp:Button Text="Eliminar" runat="server" CssClass="btn form-control btn-info" ID="BtnDelete" Visible="false" OnClick="BtnDelete_Click"/>    
-        <asp:Button Text="Volver" runat="server" CssClass="btn form-control btn-dark" ID="BtnVolver" Visible="true" OnClick="BtnVolver_Click"/>  
+        <asp:Button Text="Volver" runat="server" CssClass="btn form-control btn-dark" ID="BtnVolver" Visible="true" OnClick="BtnVolver_Click"  style="margin-top: 1em;"/>  
         </div>
     </form>
 </asp:Content>

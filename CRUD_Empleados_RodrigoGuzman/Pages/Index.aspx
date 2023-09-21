@@ -7,32 +7,45 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
     <form runat="server">
         <br />  
-        <div class="mx-auto" style="width: 300px">
-            <h2>Listado de Registros</h2>
-        </div>
-
         <div class="container row">
+            <div class="mx-auto" ">
+                <h2>Empleados</h2>
+            </div>
             <div class="table small">
                         <br />
                         <div class="container">
                             <div class="row">
                                 <div class="col align-self-end">
-                                    <asp:Button ID="BtnCreate" CssClass="btn btn-success form-control-sm" Text="Nuevo Empleado" runat="server" OnClick="BtnCreate_Click"/>
+                                    <asp:Button ID="BtnCreate" 
+                                        CssClass="btn btn-success form-control-sm" 
+                                        Text="Crear Nuevo Empleado" 
+                                        runat="server" 
+                                        OnClick="BtnCreate_Click"/>
                                 </div>
                                 <div class="form-group" style="display:flex">
-                                    <asp:TextBox runat="server" ID="txtSearch" CssClass="form-control" ClientIDMode="Static"/>
-                                    <asp:Button Text="Buscar" runat="server" CssClass="btn form-control-sm btn-danger" ID="BtnSearch" OnClick="BtnSearch_Click" />
+                                    <asp:TextBox runat="server" 
+                                        ID="txtSearch" 
+                                        CssClass="form-control" 
+                                        ClientIDMode="Static" 
+                                        placeholder="Escribe tu búsqueda aquí"  
+                                        AutoPostBack="true"/>
+                                    <asp:Button Text="Buscar" 
+                                        runat="server" 
+                                        CssClass="btn form-control-sm btn-danger" 
+                                        ID="Button1" 
+                                        OnClick="BtnSearch_Click"
+                                        style="margin-left: 0.5em;"/>
                                 </div>
                             </div>
                         </div>
                         <br />
 
-                <asp:GridView runat="server" ID="gvusuarios" class="table table-hover">
+                <asp:GridView runat="server" ID="gvempleados" class="table table-hover">
                     <columns>
                         <asp:TemplateField HeaderText="Opciones CRUD">
                             <ItemTemplate>
                                 <asp:Button Text="Editar" runat="server" CssClass="btn form-control-sm btn-info" ID="BtnEdit" OnClick="BtnEdit_Click"/>
-                                <asp:Button Text="Eliminar" runat="server" CssClass="btn form-control-sm btn-warning" ID="BtnDelete" OnClick="BtnDelete_Click"/>
+                                <asp:Button Text="Eliminar" runat="server" CssClass="btn form-control-sm btn-warning" ID="BtnDelete" OnClick="BtnDelete_Click"  style="margin-left: 0.3em;"/>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </columns>     
@@ -40,4 +53,12 @@
             </div>
         </div>
     </form>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var textbox = document.getElementById('<%= txtSearch.ClientID %>');
+            textbox.focus();
+            textbox.selectionStart = textbox.selectionEnd = textbox.value.length;
+        });
+    </script>
 </asp:Content>
