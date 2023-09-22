@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data;
+using CRUD_Empleados_RodrigoGuzman.Features.Empeados.Interactor;
+using CRUD_Empleados_RodrigoGuzman.Features.Empeados;
+using CRUD_Empleados_RodrigoGuzman.Features.Empeados.InputOutput;
+using CRUD_Empleados_RodrigoGuzman.Features.Empeados.Models;
 
 namespace CRUD_Empleados_RodrigoGuzman.Pages
 {
@@ -15,6 +14,13 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
         readonly SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conexion"].ConnectionString);
         public static string sID = "-1";
         public static string sOpcion = "";
+
+        private readonly IEmpleadosUseCase EmpleadosUseCase;
+
+        public Crud()
+        {
+            EmpleadosUseCase = new EmpleadosUseCase();
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,15 +38,12 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
                     switch (sOpcion)
                     {
                         case "C":
-                            //this.lblTitulo.Text = "Ingresar Nuevo Empleado";
                             this.BtnCreate.Visible = true;
                             break;
                         case "U":
-                            //this.lblTitulo.Text = "Editar Empleado";
                             this.BtnEdit.Visible = true;
                             break;
                         case "D":
-                            //this.lblTitulo.Text = "Eliminar Empleado";
                             this.BtnDelete.Visible = true;
                             break;
                     }
@@ -50,22 +53,24 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
 
         void CargarDatos()
         {
-            SqlCommand cmd = new SqlCommand("sp_GetEmpleado", con);
-            cmd.CommandType = CommandType.StoredProcedure;
+            var input = new GetEmpleadoInput()
+            {
+                Id = int.Parse(sID)
+            };
+            var empleadoResult = EmpleadosUseCase.GetEmpleado(input).Result;
+            EmpleadoModel empleado = new EmpleadoModel()
+            {
+                Id = empleadoResult.Id,
+                Nombre = empleadoResult.Nombre,
+                Apellido = empleadoResult.Apellido,
+                Email = empleadoResult.Email,
+                Salario = empleadoResult.Salario
+            };
 
-            con.Open();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            da.SelectCommand.Parameters.Add("@Id", SqlDbType.Int).Value = sID;
-            DataSet ds = new DataSet();
-            ds.Clear();
-            da.Fill(ds);
-            DataTable dt = ds.Tables[0];
-            DataRow row = dt.Rows[0];
-            tbNombre.Text = row[1].ToString();
-            tbApellido.Text = row[2].ToString();
-            tbEmail.Text = row[3].ToString();
-            tbSalario.Text = row[4].ToString();
-            con.Close();
+            tbNombre.Text = empleado.Nombre.ToString();
+            tbApellido.Text = empleado.Apellido.ToString();
+            tbEmail.Text = empleado.Email.ToString();
+            tbSalario.Text = empleado.Salario.ToString();
         }
 
         protected void BtnEdit_Click(object sender, EventArgs e)

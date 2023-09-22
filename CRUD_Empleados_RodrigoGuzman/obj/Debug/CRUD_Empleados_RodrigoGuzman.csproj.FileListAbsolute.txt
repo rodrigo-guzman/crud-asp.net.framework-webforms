@@ -109,7 +109,13 @@ C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_Rodrigo
 C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_RodrigoGuzman\bin\roslyn\vbc.rsp
 C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_RodrigoGuzman\bin\roslyn\VBCSCompiler.exe
 C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_RodrigoGuzman\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_RodrigoGuzman\bin\EntityFramework.dll
+C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_RodrigoGuzman\bin\EntityFramework.SqlServer.dll
 C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_RodrigoGuzman\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_RodrigoGuzman\bin\Newtonsoft.Json.dll
+C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_RodrigoGuzman\bin\EntityFramework.xml
+C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_RodrigoGuzman\bin\EntityFramework.SqlServer.xml
+C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_RodrigoGuzman\bin\Newtonsoft.Json.xml
 C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_RodrigoGuzman\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_RodrigoGuzman\obj\Debug\CRUD_Empleados_RodrigoGuzman.csproj.AssemblyReference.cache
 C:\Users\W10\source\repos\crud-asp.net.framework-webforms\CRUD_Empleados_RodrigoGuzman\obj\Debug\CRUD_Empleados_RodrigoGuzman.csproj.CoreCompileInputs.cache

@@ -27,8 +27,7 @@
                                         ID="txtSearch" 
                                         CssClass="form-control" 
                                         ClientIDMode="Static" 
-                                        placeholder="Escribe tu búsqueda aquí"  
-                                        AutoPostBack="true"/>
+                                        placeholder="Escribe tu búsqueda aquí"/>
                                     <asp:Button Text="Buscar" 
                                         runat="server" 
                                         CssClass="btn form-control-sm btn-danger" 

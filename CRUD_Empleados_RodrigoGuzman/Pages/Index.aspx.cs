@@ -1,13 +1,13 @@
-﻿using System;
+﻿using CRUD_Empleados_RodrigoGuzman.Features.Empeados;
+using CRUD_Empleados_RodrigoGuzman.Features.Empeados.InputOutput;
+using CRUD_Empleados_RodrigoGuzman.Features.Empeados.Interactor;
+using CRUD_Empleados_RodrigoGuzman.Features.Empeados.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.Services;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace CRUD_Empleados_RodrigoGuzman.Pages
@@ -15,6 +15,12 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
     public partial class Index : System.Web.UI.Page
     {
         readonly SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conexion"].ConnectionString);
+        private readonly IEmpleadosUseCase EmpleadosUseCase;
+
+        public Index()
+        {
+            EmpleadosUseCase = new EmpleadosUseCase();
+        }
 
         void CargarTabla()
         {
@@ -73,72 +79,25 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
 
         public void LlenarGrillaEmpleados(string query = "")
         {
-
-            SqlCommand cmd = new SqlCommand("sp_GetEmpleados", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            con.Open();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
             string texto = (query != "") ? query : txtSearch.Text;
-            da.SelectCommand.Parameters.Add("@Search", SqlDbType.VarChar).Value = texto;
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            gvempleados.DataSource = dt;
-            gvempleados.DataBind();
-            con.Close();
-        }
-
-        [WebMethod]
-        public static string Buscar(string query)
-        {
-            try
+            var input = new GetEmpleadoInput()
             {
-                Index index = new Index();
-                SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["conexion"].ConnectionString);
-                SqlCommand cmd = new SqlCommand("sp_GetEmpleados", conexion);
-                cmd.CommandType = CommandType.StoredProcedure;
-                conexion.Open();
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                string texto = (query != "") ? query : index.txtSearch.Text;
-                da.SelectCommand.Parameters.Add("@Search", SqlDbType.VarChar).Value = texto;
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                //index.gvempleados.DataSource = dt;
-                //index.gvempleados.DataBind();
-                conexion.Close();
-                return DataTableToString(dt);
-            }
-            catch (Exception ex)
-            {
-                var a = ex;
-                throw;
-            }
-        }
-
-        static string DataTableToString(DataTable dataTable)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            // Agregar encabezados de columnas
-            foreach (DataColumn column in dataTable.Columns)
-            {
-                sb.Append(column.ColumnName);
-                sb.Append("\t"); // Puedes usar un separador diferente si lo deseas
-            }
-            sb.AppendLine();
-
-            // Agregar datos de las filas
-            foreach (DataRow row in dataTable.Rows)
-            {
-                foreach (object item in row.ItemArray)
+                Search = texto
+            };
+            var empleadosResult = EmpleadosUseCase.GetEmpleados(input).Result;
+            List<EmpleadoModel> empleados = empleadosResult
+                .Select(e => new EmpleadoModel
                 {
-                    sb.Append(item.ToString());
-                    sb.Append("\t"); // Puedes usar un separador diferente si lo deseas
-                }
-                sb.AppendLine();
-            }
+                    Id = e.Id,
+                    Nombre = e.Nombre,
+                    Apellido = e.Apellido,
+                    Email = e.Email,
+                    Salario = e.Salario
+                })
+                .ToList();
 
-            return sb.ToString();
+            gvempleados.DataSource = empleados;
+            gvempleados.DataBind();
         }
     }
 }
