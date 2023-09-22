@@ -22,21 +22,14 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
             EmpleadosUseCase = new EmpleadosUseCase();
         }
 
-        void CargarTabla()
-        {
-            SqlCommand cmd = new SqlCommand("sp_CargarEmpleados", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            con.Open();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            gvempleados.DataSource = dt;
-            gvempleados.DataBind();
-            con.Close();
-        }
         protected void Page_Load(object sender, EventArgs e)
         {
             CargarTabla();
+        }
+
+        void CargarTabla()
+        {
+            LlenarGrillaEmpleados();
         }
 
         protected void BtnCreate_Click(object sender, EventArgs e)
@@ -74,15 +67,14 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
-            LlenarGrillaEmpleados();
+            LlenarGrillaEmpleados(txtSearch.Text);
         }
 
         public void LlenarGrillaEmpleados(string query = "")
         {
-            string texto = (query != "") ? query : txtSearch.Text;
             var input = new GetEmpleadoInput()
             {
-                Search = texto
+                Search = query
             };
             var empleadosResult = EmpleadosUseCase.GetEmpleados(input).Result;
             List<EmpleadoModel> empleados = empleadosResult
