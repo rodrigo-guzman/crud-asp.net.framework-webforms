@@ -11,3 +11,5 @@ En el código, se accede a la base de datos de dos maneras:
 1-  Para los métodos Crear, Editar y Eliminar, se llama directamente la base de datos desde la clase asociada a la página.
 2-  Para los métodos Get, se llama a la base de datos a través de Entity Framework, utilizando alguno de los principios de Clean Architecture.
 En estas consultas se utiliza Linq.
+
+Los Scripts de sql se encuentran en la carpeta BaseDeDatos
