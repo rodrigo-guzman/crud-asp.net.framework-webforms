@@ -32,7 +32,7 @@ namespace CRUD_Empleados_RodrigoGuzman.Features.Empeados.Repository.Data
             SQLServerDBContext dbContext = new SQLServerDBContext();
             var empleados = dbContext.Empleados
                 .Where(e => e.Nombre.Contains(search) || e.Apellido.Contains(search))
-                .OrderBy(e => e.Apellido).ThenBy(e => e.Nombre);
+                .OrderBy(e => e.Id);
 
             foreach (var empleado in empleados)
             {

@@ -43,9 +43,6 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
                         case "U":
                             this.BtnEdit.Visible = true;
                             break;
-                        case "D":
-                            this.BtnDelete.Visible = true;
-                            break;
                     }
                 }
             }
@@ -83,17 +80,6 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
             cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = tbApellido.Text;
             cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = tbEmail.Text;
             cmd.Parameters.Add("@Salario", SqlDbType.Money).Value = decimal.Parse(tbSalario.Text);
-            cmd.ExecuteNonQuery();
-            con.Close();
-            Response.Redirect("~/Pages/Index.aspx");
-        }
-
-        protected void BtnDelete_Click(object sender, EventArgs e)
-        {
-            SqlCommand cmd = new SqlCommand("sp_EliminarEmpleado", con);
-            con.Open();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = sID;
             cmd.ExecuteNonQuery();
             con.Close();
             Response.Redirect("~/Pages/Index.aspx");

@@ -59,10 +59,13 @@ namespace CRUD_Empleados_RodrigoGuzman.Pages
             Button BtnConsultar = (Button)sender;
             GridViewRow selectedRow = (GridViewRow)BtnConsultar.NamingContainer;
             id = selectedRow.Cells[1].Text;
-            string url = "~/Pages/CRUD.aspx?id=" + id + "&op=D";
-
-            string script = "<script>window.open('" + ResolveUrl(url) + "', '', 'width=500,height=550');</script>";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Popup", script);
+            SqlCommand cmd = new SqlCommand("sp_EliminarEmpleado", con);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+            cmd.ExecuteNonQuery();
+            con.Close();
+            Response.Redirect("~/Pages/Index.aspx");
         }
 
         protected void BtnSearch_Click(object sender, EventArgs e)

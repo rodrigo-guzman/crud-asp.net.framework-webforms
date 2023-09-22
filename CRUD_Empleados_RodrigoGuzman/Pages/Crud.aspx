@@ -54,13 +54,7 @@
                 ID="BtnEdit" 
                 Visible="false" 
                 OnClick="BtnEdit_Click"
-                OnClientClick="return validarInputs();"/>
-            <asp:Button Text="Eliminar" 
-                runat="server" 
-                CssClass="btn form-control btn-info" 
-                ID="BtnDelete" Visible="false" 
-                OnClick="BtnDelete_Click"
-                OnClientClick="return validarInputs();"/>    
+                OnClientClick="return validarInputs();"/>   
             <button type="button" 
                 class="btn form-control btn-dark" 
                 OnClick="Cerrar()" 
